@@ -1,16 +1,122 @@
 from cs5322s23 import *
 
-rubbish_sentences = [ 
-    'There was a thick film of dust on every exposed surface; rubbish and the carcass of some small animal had liecn swept carelessly into a corner.',
-    "There's nothing under here except a large amount of mineral salts and other rubbish that's no use to us.",
-    'I dropped the satin rubbish on the floor, because it could only hamper me.',
-    'Like a man possessed he hurried around the room, tumbling rubbish and papers into piles and igniting them with his pocket lighter.',
-    'Rubbish and offal filled the corners.',
-    "Wendy wouldn't be sucked in by a load of specious rubbish spouted by a cracked demagogue hungry for martyrdom.",
-    "\"Oh, let's Stop talking rubbish,\" she cried.",
-    'Intelligent design should be viewed as a ground-clearing operation that gets rid of the intellectual rubbish that for generations has kept Christianity from receiving serious consideration.',
-    'Nonsensical talk or rubbish'
- ]
+ready = False
+rubbish_sentences = [ ]
+rubbish_sentences_tags = [ ]
+definition = 0
+with open('rubbish.txt', encoding='utf8') as file:
+    for line in file:
+        line = line.strip()
+        if not line: # Skips blank lines
+            continue
+        if line != '1' and not ready:
+            continue
+        elif not ready:
+            ready = True
+            definition = 1
+        
+        if line == '2':
+            definition = 2
+        
+        if line != '1' and line != '2':
+            rubbish_sentences.append(line)
+            rubbish_sentences_tags.append(definition)
+
+WSD_Solution = WSD_Test_Rubbish(rubbish_sentences)
+
+correct = 0
+for i in range(len(WSD_Solution)):
+    if WSD_Solution[i] == rubbish_sentences_tags[i]:
+        correct += 1
+
+print('Accuracy:', correct / len(WSD_Solution))
+print(len(rubbish_sentences), len(rubbish_sentences_tags), len(WSD_Solution))
+
+#for i in range(len(rubbish_sentences)):
+#    print(rubbish_sentences[i], rubbish_sentences_tags[i])
+#    print()
+
+ready = False
+tissue_sentences = [ ]
+tissue_sentences_tags = [ ]
+definition = 0
+with open('tissue.txt', encoding='utf8') as file:
+    for line in file:
+        line = line.strip()
+        if not line: # Skips blank lines
+            continue
+        if line != '1' and not ready:
+            continue
+        elif not ready:
+            ready = True
+            definition = 1
+        
+        if line == '2':
+            definition = 2
+        
+        if line != '1' and line != '2':
+            tissue_sentences.append(line)
+            tissue_sentences_tags.append(definition)
+
+WSD_Solution2 = WSD_Test_Tissue(tissue_sentences)
+
+correct2 = 0
+for i in range(len(WSD_Solution2)):
+    if WSD_Solution2[i] == tissue_sentences_tags[i]:
+        correct2 += 1
+
+print('Accuracy:', correct2 / len(WSD_Solution2))
+print(len(tissue_sentences), len(tissue_sentences_tags), len(WSD_Solution2))
+
+#----------------------------------------------------------
+
+ready = False
+yarn_sentences = [ ]
+yarn_sentences_tags = [ ]
+definition = 0
+with open('yarn.txt', encoding='utf8') as file:
+    for line in file:
+        line = line.strip()
+        if not line: # Skips blank lines
+            continue
+        if line != '1' and not ready:
+            continue
+        elif not ready:
+            ready = True
+            definition = 1
+        
+        if line == '2':
+            definition = 2
+        
+        if line != '1' and line != '2':
+            yarn_sentences.append(line)
+            yarn_sentences_tags.append(definition)
+
+WSD_Solution3 = WSD_Test_Yarn(yarn_sentences)
+
+correct = 0
+for i in range(len(WSD_Solution3)):
+    if WSD_Solution3[i] == yarn_sentences_tags[i]:
+        correct += 1
+
+print('Accuracy:', correct / len(WSD_Solution3))
+print(len(yarn_sentences), len(yarn_sentences_tags), len(WSD_Solution3))
+
+
+
+#rubbish_sentences = [ 
+#    'There was a thick film of dust on every exposed surface; rubbish and the carcass of some small animal had liecn swept carelessly into a corner.',
+#    "There's nothing under here except a large amount of mineral salts and other rubbish that's no use to us.",
+#    'I dropped the satin rubbish on the floor, because it could only hamper me.',
+#    'Like a man possessed he hurried around the room, tumbling rubbish and papers into piles and igniting them with his pocket lighter.',
+#    'Rubbish and offal filled the corners.',
+#    "Wendy wouldn't be sucked in by a load of specious rubbish spouted by a cracked demagogue hungry for martyrdom.",
+#    "\"Oh, let's Stop talking rubbish,\" she cried.",
+#    'Intelligent design should be viewed as a ground-clearing operation that gets rid of the intellectual rubbish that for generations has kept Christianity from receiving serious consideration.',
+#    'Nonsensical talk or rubbish'
+# ]
+
+'''
 
 WSD_Test_Rubbish(rubbish_sentences)
 
@@ -37,3 +143,5 @@ testing3 = [
 ]
 
 WSD_Test_Yarn(testing3)
+
+'''
