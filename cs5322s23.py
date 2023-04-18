@@ -1,10 +1,34 @@
-def WSD_Test_Rubbish(list):
-    print('Inside Rubbish function')
+from nltk.wsd import lesk
+from nltk.tokenize import word_tokenize
+from nltk.corpus import wordnet as wn
 
+def WSD_Test_Rubbish(list): # List is a list of strings, with each string being a sentence containing the word "rubbish"
+    options = wn.synsets('rubbish')
+    options.pop()
+    for sentence in list:
+        a1 = lesk(word_tokenize(sentence), 'rubbish', 'n', options)
+        if a1.definition() == options[0].definition():
+            print(1)
+        elif a1.definition() == options[1].definition():
+            print(2)
 
 def WSD_Test_Yarn(list):
-    print('Inside Yarn function')
+    options = wn.synsets('yarn')
+    options.pop()
+    for sentence in list:
+        a1 = lesk(word_tokenize(sentence), 'yarn', 'n', options)
+        if a1.definition() == options[0].definition():
+            print(1)
+        elif a1.definition() == options[1].definition():
+            print(2)
 
 
 def WSD_Test_Tissue(list):
-    print('Inside Tissue function')
+    options = wn.synsets('tissue')
+    options.pop()
+    for sentence in list:
+        a1 = lesk(word_tokenize(sentence), 'tissue', 'n', options)
+        if a1.definition() == options[0].definition():
+            print(1)
+        elif a1.definition() == options[1].definition():
+            print(2)
