@@ -15,7 +15,7 @@ def WSD_Test_Rubbish(list): # List is a list of strings, with each string being 
     '''
 
     lemmatizer = WordNetLemmatizer()
-    stopWords = set(stopwords.words('english'))
+    stopWords = stopwords.words('english')
 
     def1Words = word_tokenize(definition1)
     def2Words = word_tokenize(definition2)
@@ -23,30 +23,33 @@ def WSD_Test_Rubbish(list): # List is a list of strings, with each string being 
     def1Filtered = [ ]
     def2Filtered = [ ]
 
-    for word in def1Words: #filters out stop words
-        if word not in stopWords:
-            word = lemmatizer.lemmatize(word) #lemmatizes words
-            def1Filtered.append(word)
+    for word in def1Words: 
+        if word not in stopWords: #filters out stop words
+            theWord = lemmatizer.lemmatize(word)
+            def1Filtered.append(theWord)
+            
 
-    for word in def2Words: #filters out stop words
-        if word not in stopWords:
-            word = lemmatizer.lemmatize(word) #lemmatizes words
-            def2Filtered.append(word)
+    for word in def2Words: 
+        if word not in stopWords: #filters out stop words
+            theWord = lemmatizer.lemmatize(word)
+            def2Filtered.append(theWord)
 
     count = 1
 
     for sentence in list: #iterates through every sentence
+        print('Sentence ' + str(count))
         words = word_tokenize(sentence)
-        filtered_words = [ ]
+        filteredWords = [ ]
         for word in words: #filters out stop words
             if word not in stopWords:
-                word = lemmatizer.lemmatize(word) #lemmatizes words
-                filtered_words.append(word)
+                theWord = lemmatizer.lemmatize(word)
+                filteredWords.append(theWord)
+
 
         def1Similarity = 0 #the sentence's similarity to the first definition
         def2Similarity = 0 #the sentence's similarity to the second definition
         
-        for word in filtered_words:
+        for word in filteredWords:
             for otherWord in def1Filtered:
                 try:
                     word1 = wn.synset(word + '.n.01')
@@ -63,13 +66,74 @@ def WSD_Test_Rubbish(list): # List is a list of strings, with each string being 
                 except:
                     def2Similarity += 0
 
-        print('Sentence ' + str(count) + ':', 'def1Similarity', def1Similarity / len(def1Words), 'def2Similarity', def2Similarity / len(def2Words))
+        newDef1Filtered = [ ]
+        newDef2Filtered = [ ]
+        newFilteredWords = [ ]
+
+        for word in def1Filtered:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newDef1Filtered.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newDef1Filtered.append(theWord)
+
+        for word in def2Filtered:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newDef2Filtered.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newDef2Filtered.append(theWord)
+
+        for word in filteredWords:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newFilteredWords.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newFilteredWords.append(theWord)
+
+        simCount1 = 0
+        simCount2 = 0
+        for word in newFilteredWords:
+            for otherWord in newDef1Filtered:
+                if word == otherWord:
+                    simCount1 += 1
+
+            for otherWord in newDef2Filtered:
+                if word == otherWord:
+                    simCount2 += 1
+
+
+        #print('Sentence ' + str(count) + ':', 'def1Similarity', def1Similarity / len(def1Words), 'def2Similarity', def2Similarity / len(def2Words))
         count += 1
-        if (def1Similarity) > (def2Similarity):
-            print(1)
+        if (def1Similarity + simCount1) > (def2Similarity + simCount2):
+            #print(1)
             answer.append(1)
         else:
-            print(2)
+            #print(2)
             answer.append(2)
 
     return answer
@@ -83,7 +147,7 @@ def WSD_Test_Yarn(list):
     '''
 
     lemmatizer = WordNetLemmatizer()
-    stopWords = set(stopwords.words('english'))
+    stopWords = stopwords.words('english')
 
     def1Words = word_tokenize(definition1)
     def2Words = word_tokenize(definition2)
@@ -104,16 +168,16 @@ def WSD_Test_Yarn(list):
 
     for sentence in list: #iterates through every sentence
         words = word_tokenize(sentence)
-        filtered_words = [ ]
+        filteredWords = [ ]
         for word in words: #filters out stop words
             if word not in stopWords:
                 word = lemmatizer.lemmatize(word) #lemmatizes words
-                filtered_words.append(word)
+                filteredWords.append(word)
 
         def1Similarity = 0 #the sentence's similarity to the first definition
         def2Similarity = 0 #the sentence's similarity to the second definition
         
-        for word in filtered_words:
+        for word in filteredWords:
             for otherWord in def1Filtered:
                 try:
                     word1 = wn.synset(word + '.n.01')
@@ -130,7 +194,68 @@ def WSD_Test_Yarn(list):
                 except:
                     def2Similarity += 0
 
-        if (def1Similarity) > (def2Similarity):
+
+        newDef1Filtered = [ ]
+        newDef2Filtered = [ ]
+        newFilteredWords = [ ]
+
+        for word in def1Filtered:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newDef1Filtered.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newDef1Filtered.append(theWord)
+
+        for word in def2Filtered:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newDef2Filtered.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newDef2Filtered.append(theWord)
+
+        for word in filteredWords:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newFilteredWords.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newFilteredWords.append(theWord)
+
+        simCount1 = 0
+        simCount2 = 0
+        for word in newFilteredWords:
+            for otherWord in newDef1Filtered:
+                if word == otherWord:
+                    simCount1 += 1
+
+            for otherWord in newDef2Filtered:
+                if word == otherWord:
+                    simCount2 += 1
+
+        if (def1Similarity + simCount1) > (def2Similarity + simCount2):
             answer.append(1)
         else:
             answer.append(2)
@@ -148,7 +273,7 @@ def WSD_Test_Tissue(list):
     '''
 
     lemmatizer = WordNetLemmatizer()
-    stopWords = set(stopwords.words('english'))
+    stopWords = stopwords.words('english')
 
     def1Words = word_tokenize(definition1)
     def2Words = word_tokenize(definition2)
@@ -169,16 +294,16 @@ def WSD_Test_Tissue(list):
 
     for sentence in list: #iterates through every sentence
         words = word_tokenize(sentence)
-        filtered_words = [ ]
+        filteredWords = [ ]
         for word in words: #filters out stop words
             if word not in stopWords:
                 word = lemmatizer.lemmatize(word) #lemmatizes words
-                filtered_words.append(word)
+                filteredWords.append(word)
 
         def1Similarity = 0 #the sentence's similarity to the first definition
         def2Similarity = 0 #the sentence's similarity to the second definition
         
-        for word in filtered_words:
+        for word in filteredWords:
             for otherWord in def1Filtered:
                 try:
                     word1 = wn.synset(word + '.n.01')
@@ -195,7 +320,67 @@ def WSD_Test_Tissue(list):
                 except:
                     def2Similarity += 0
 
-        if (def1Similarity) > (def2Similarity):
+        newDef1Filtered = [ ]
+        newDef2Filtered = [ ]
+        newFilteredWords = [ ]
+
+        for word in def1Filtered:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newDef1Filtered.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newDef1Filtered.append(theWord)
+
+        for word in def2Filtered:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newDef2Filtered.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newDef2Filtered.append(theWord)
+
+        for word in filteredWords:
+            for definition in wn.synsets(word):
+                    hypernyms = definition.hypernyms()
+                    hyponyms = definition.hyponyms()
+                    meronyms = definition.part_meronyms() + definition.substance_meronyms() + definition.member_meronyms()
+                    synonyms = definition.lemmas()
+
+                    for related_word in hypernyms + hyponyms + meronyms:
+                        theWord = lemmatizer.lemmatize(related_word.name().split('.')[0])
+                        newFilteredWords.append(theWord)
+
+                    for synonym in synonyms:
+                        theWord = lemmatizer.lemmatize(synonym.name()) #lemmatizes words
+                        newFilteredWords.append(theWord)
+
+        simCount1 = 0
+        simCount2 = 0
+        for word in newFilteredWords:
+            for otherWord in newDef1Filtered:
+                if word == otherWord:
+                    simCount1 += 1
+
+            for otherWord in newDef2Filtered:
+                if word == otherWord:
+                    simCount2 += 1
+
+        if (def1Similarity + simCount1) > (def2Similarity + simCount2):
             answer.append(1)
         else:
             answer.append(2)

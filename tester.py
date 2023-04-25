@@ -102,6 +102,7 @@ for i in range(len(WSD_Solution3)):
 print('Accuracy:', correct / len(WSD_Solution3))
 print(len(yarn_sentences), len(yarn_sentences_tags), len(WSD_Solution3))
 
+
 '''
 from pprint import pprint
 pprint(WSD_Solution)
