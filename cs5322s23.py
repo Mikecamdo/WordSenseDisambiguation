@@ -183,10 +183,28 @@ def WSD_Test_Yarn(list):
     The port was opened in 1762, mainly for the export of coir-matting and coir-yarn. Kesavadas built three ships for trade with Calcutta and Bombay, and alleppey afforded a convenient depot for the storage and disposal of goods produce in the east.
     '''
 
+    lemmatizer = WordNetLemmatizer()
+    stopWords = set(stopwords.words('english'))
+
+    def1Words = word_tokenize(definition1)
+    def2Words = word_tokenize(definition2)
+
+    def1Filtered = [ ]
+    def2Filtered = [ ]
+
+    for word in def1Words: #filters out stop words
+        if word not in stopWords:
+            word = lemmatizer.lemmatize(word) #lemmatizes words
+            def1Filtered.append(word)
+
+    for word in def2Words: #filters out stop words
+        if word not in stopWords:
+            word = lemmatizer.lemmatize(word) #lemmatizes words
+            def2Filtered.append(word)
+
+
     for sentence in list: #iterates through every sentence
         words = word_tokenize(sentence)
-        lemmatizer = WordNetLemmatizer()
-        stopWords = set(stopwords.words('english'))
         filtered_words = [ ]
         for word in words: #filters out stop words
             if word not in stopWords:
@@ -195,12 +213,9 @@ def WSD_Test_Yarn(list):
 
         def1Similarity = 0 #the sentence's similarity to the first definition
         def2Similarity = 0 #the sentence's similarity to the second definition
-
-        def1Words = word_tokenize(definition1)
-        def2Words = word_tokenize(definition2)
         
         for word in filtered_words:
-            for otherWord in def1Words:
+            for otherWord in def1Filtered:
                 try:
                     word1 = wn.synset(word + '.n.01')
                     word2 = wn.synset(otherWord  + '.n.01')
@@ -208,7 +223,7 @@ def WSD_Test_Yarn(list):
                 except:
                     def1Similarity += 0
 
-            for otherWord in def2Words:
+            for otherWord in def2Filtered:
                 try:
                     word1 = wn.synset(word + '.n.01')
                     word2 = wn.synset(otherWord  + '.n.01')
@@ -283,10 +298,28 @@ def WSD_Test_Tissue(list):
     The underlying demand for dissolving pulp, packaging, office paper and tissue, in South Africa, and speciality papers abroad, remains strong, driven by global sustainability trends
     '''
 
+    lemmatizer = WordNetLemmatizer()
+    stopWords = set(stopwords.words('english'))
+
+    def1Words = word_tokenize(definition1)
+    def2Words = word_tokenize(definition2)
+
+    def1Filtered = [ ]
+    def2Filtered = [ ]
+
+    for word in def1Words: #filters out stop words
+        if word not in stopWords:
+            word = lemmatizer.lemmatize(word) #lemmatizes words
+            def1Filtered.append(word)
+
+    for word in def2Words: #filters out stop words
+        if word not in stopWords:
+            word = lemmatizer.lemmatize(word) #lemmatizes words
+            def2Filtered.append(word)
+
+
     for sentence in list: #iterates through every sentence
         words = word_tokenize(sentence)
-        lemmatizer = WordNetLemmatizer()
-        stopWords = set(stopwords.words('english'))
         filtered_words = [ ]
         for word in words: #filters out stop words
             if word not in stopWords:
@@ -295,12 +328,9 @@ def WSD_Test_Tissue(list):
 
         def1Similarity = 0 #the sentence's similarity to the first definition
         def2Similarity = 0 #the sentence's similarity to the second definition
-
-        def1Words = word_tokenize(definition1)
-        def2Words = word_tokenize(definition2)
         
         for word in filtered_words:
-            for otherWord in def1Words:
+            for otherWord in def1Filtered:
                 try:
                     word1 = wn.synset(word + '.n.01')
                     word2 = wn.synset(otherWord  + '.n.01')
@@ -308,7 +338,7 @@ def WSD_Test_Tissue(list):
                 except:
                     def1Similarity += 0
 
-            for otherWord in def2Words:
+            for otherWord in def2Filtered:
                 try:
                     word1 = wn.synset(word + '.n.01')
                     word2 = wn.synset(otherWord  + '.n.01')
