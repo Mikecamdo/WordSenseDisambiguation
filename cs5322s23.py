@@ -125,7 +125,11 @@ def WSD_Test_Rubbish(list): # List is a list of strings, with each string being 
         else:
             answer.append(2)
         
-    return answer
+    #writes the output to the appropriate .txt file
+    f = open("result_rubbish_MichaelDoherty.txt", "w")
+    for a in answer:
+        f.write(str(a) + '\n')
+    f.close()
 
 def WSD_Test_Yarn(list):
     answer = [ ]
@@ -233,7 +237,10 @@ def WSD_Test_Yarn(list):
         else:
             answer.append(2)
 
-    return answer
+    f = open("result_yarn_MichaelDoherty.txt", "w")
+    for a in answer:
+        f.write(str(a) + '\n')
+    f.close()
 
 
 def WSD_Test_Tissue(list):
@@ -327,7 +334,7 @@ def WSD_Test_Tissue(list):
 
         simCount1 = 0
         simCount2 = 0
-        
+
         for word in newFilteredWords:
             for otherWord in newDef1Filtered:
                 if word == otherWord:
@@ -342,4 +349,7 @@ def WSD_Test_Tissue(list):
         else:
             answer.append(2)
 
-    return answer
+    f = open("result_tissue_MichaelDoherty.txt", "w")
+    for a in answer:
+        f.write(str(a) + '\n')
+    f.close()
