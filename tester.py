@@ -4,7 +4,7 @@ ready = False
 rubbish_sentences = [ ]
 rubbish_sentences_tags = [ ]
 definition = 0
-with open('custom_rubbish.txt', encoding='utf8') as file:
+with open('custom_rubbish2.txt', encoding='utf8') as file:
     for line in file:
         line = line.strip()
         if not line: # Skips blank lines
@@ -43,7 +43,7 @@ ready = False
 tissue_sentences = [ ]
 tissue_sentences_tags = [ ]
 definition = 0
-with open('custom_tissue.txt', encoding='utf8') as file:
+with open('custom_tissue2.txt', encoding='utf8') as file:
     for line in file:
         line = line.strip()
         if not line: # Skips blank lines
@@ -82,7 +82,7 @@ ready = False
 yarn_sentences = [ ]
 yarn_sentences_tags = [ ]
 definition = 0
-with open('custom_yarn.txt', encoding='utf8') as file:
+with open('custom_yarn2.txt', encoding='utf8') as file:
     for line in file:
         line = line.strip()
         if not line: # Skips blank lines
