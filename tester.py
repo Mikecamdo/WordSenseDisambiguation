@@ -31,6 +31,7 @@ for i in range(len(WSD_Solution)):
     else:
         print(rubbish_sentences[i])
         print('def1Count:', def1Counts[i], 'def2Count:', def2Counts[i])
+        print('Guess:', WSD_Solution[i], 'Should be:', rubbish_sentences_tags[i])
 
 print('Accuracy:', correct / len(WSD_Solution))
 print(len(rubbish_sentences), len(rubbish_sentences_tags), len(WSD_Solution))
@@ -69,6 +70,7 @@ for i in range(len(WSD_Solution2)):
     else:
         print(tissue_sentences[i])
         print('def1Count:', def1Counts[i], 'def2Count:', def2Counts[i])
+        print('Guess:', WSD_Solution2[i], 'Should be:', tissue_sentences_tags[i])
 
 print('Accuracy:', correct2 / len(WSD_Solution2))
 print(len(tissue_sentences), len(tissue_sentences_tags), len(WSD_Solution2))
@@ -107,6 +109,7 @@ for i in range(len(WSD_Solution3)):
     else:
         print(yarn_sentences[i])
         print('def1Count:', def1Counts[i], 'def2Count:', def2Counts[i])
+        print('Guess:', WSD_Solution3[i], 'Should be:', yarn_sentences_tags[i])
 
 print('Accuracy:', correct / len(WSD_Solution3))
 print(len(yarn_sentences), len(yarn_sentences_tags), len(WSD_Solution3))
