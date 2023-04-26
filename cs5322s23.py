@@ -34,37 +34,16 @@ def WSD_Test_Rubbish(list): # List is a list of strings, with each string being 
             theWord = lemmatizer.lemmatize(word)
             def2Filtered.append(theWord)
 
-    count = 1
+    def1Counts = [ ]
+    def2Counts = [ ]
 
     for sentence in list: #iterates through every sentence
-        print('Sentence ' + str(count))
         words = word_tokenize(sentence)
         filteredWords = [ ]
         for word in words: #filters out stop words
             if word not in stopWords:
                 theWord = lemmatizer.lemmatize(word)
                 filteredWords.append(theWord)
-
-
-        def1Similarity = 0 #the sentence's similarity to the first definition
-        def2Similarity = 0 #the sentence's similarity to the second definition
-        
-        for word in filteredWords:
-            for otherWord in def1Filtered:
-                try:
-                    word1 = wn.synset(word + '.n.01')
-                    word2 = wn.synset(otherWord  + '.n.01')
-                    def1Similarity += word1.wup_similarity(word2) #calculates how similar the definitions of the two words are
-                except:
-                    def1Similarity += 0
-
-            for otherWord in def2Filtered:
-                try:
-                    word1 = wn.synset(word + '.n.01')
-                    word2 = wn.synset(otherWord  + '.n.01')
-                    def2Similarity += word1.wup_similarity(word2) #calculates how similar the definitions of the two words are
-                except:
-                    def2Similarity += 0
 
         newDef1Filtered = [ ]
         newDef2Filtered = [ ]
@@ -127,16 +106,14 @@ def WSD_Test_Rubbish(list): # List is a list of strings, with each string being 
                     simCount2 += 1
 
 
-        #print('Sentence ' + str(count) + ':', 'def1Similarity', def1Similarity / len(def1Words), 'def2Similarity', def2Similarity / len(def2Words))
-        count += 1
-        if (def1Similarity + simCount1) > (def2Similarity + simCount2):
-            #print(1)
+        if (simCount1) > (simCount2):
             answer.append(1)
         else:
-            #print(2)
             answer.append(2)
+        def1Counts.append(simCount1)
+        def2Counts.append(simCount2)
 
-    return answer
+    return answer, def1Counts, def2Counts
 
 def WSD_Test_Yarn(list):
     answer = [ ]
@@ -165,6 +142,8 @@ def WSD_Test_Yarn(list):
             word = lemmatizer.lemmatize(word) #lemmatizes words
             def2Filtered.append(word)
 
+    def1Counts = [ ]
+    def2Counts = [ ]
 
     for sentence in list: #iterates through every sentence
         words = word_tokenize(sentence)
@@ -173,27 +152,6 @@ def WSD_Test_Yarn(list):
             if word not in stopWords:
                 word = lemmatizer.lemmatize(word) #lemmatizes words
                 filteredWords.append(word)
-
-        def1Similarity = 0 #the sentence's similarity to the first definition
-        def2Similarity = 0 #the sentence's similarity to the second definition
-        
-        for word in filteredWords:
-            for otherWord in def1Filtered:
-                try:
-                    word1 = wn.synset(word + '.n.01')
-                    word2 = wn.synset(otherWord  + '.n.01')
-                    def1Similarity += word1.wup_similarity(word2) #calculates how similar the definitions of the two words are
-                except:
-                    def1Similarity += 0
-
-            for otherWord in def2Filtered:
-                try:
-                    word1 = wn.synset(word + '.n.01')
-                    word2 = wn.synset(otherWord  + '.n.01')
-                    def2Similarity += word1.wup_similarity(word2) #calculates how similar the definitions of the two words are
-                except:
-                    def2Similarity += 0
-
 
         newDef1Filtered = [ ]
         newDef2Filtered = [ ]
@@ -255,12 +213,15 @@ def WSD_Test_Yarn(list):
                 if word == otherWord:
                     simCount2 += 1
 
-        if (def1Similarity + simCount1) > (def2Similarity + simCount2):
+        if (simCount1) > (simCount2):
             answer.append(1)
         else:
             answer.append(2)
 
-    return answer
+        def1Counts.append(simCount1)
+        def2Counts.append(simCount2)
+
+    return answer, def1Counts, def2Counts
 
 
 def WSD_Test_Tissue(list):
@@ -291,6 +252,8 @@ def WSD_Test_Tissue(list):
             word = lemmatizer.lemmatize(word) #lemmatizes words
             def2Filtered.append(word)
 
+    def1Counts = [ ]
+    def2Counts = [ ]
 
     for sentence in list: #iterates through every sentence
         words = word_tokenize(sentence)
@@ -299,26 +262,6 @@ def WSD_Test_Tissue(list):
             if word not in stopWords:
                 word = lemmatizer.lemmatize(word) #lemmatizes words
                 filteredWords.append(word)
-
-        def1Similarity = 0 #the sentence's similarity to the first definition
-        def2Similarity = 0 #the sentence's similarity to the second definition
-        
-        for word in filteredWords:
-            for otherWord in def1Filtered:
-                try:
-                    word1 = wn.synset(word + '.n.01')
-                    word2 = wn.synset(otherWord  + '.n.01')
-                    def1Similarity += word1.wup_similarity(word2) #calculates how similar the definitions of the two words are
-                except:
-                    def1Similarity += 0
-
-            for otherWord in def2Filtered:
-                try:
-                    word1 = wn.synset(word + '.n.01')
-                    word2 = wn.synset(otherWord  + '.n.01')
-                    def2Similarity += word1.wup_similarity(word2) #calculates how similar the definitions of the two words are
-                except:
-                    def2Similarity += 0
 
         newDef1Filtered = [ ]
         newDef2Filtered = [ ]
@@ -380,9 +323,12 @@ def WSD_Test_Tissue(list):
                 if word == otherWord:
                     simCount2 += 1
 
-        if (def1Similarity + simCount1) > (def2Similarity + simCount2):
+        if (simCount1) > (simCount2):
             answer.append(1)
         else:
             answer.append(2)
 
-    return answer
+        def1Counts.append(simCount1)
+        def2Counts.append(simCount2)
+
+    return answer, def1Counts, def2Counts
