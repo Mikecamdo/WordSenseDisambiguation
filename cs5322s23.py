@@ -7,7 +7,7 @@ from nltk.stem import WordNetLemmatizer, PorterStemmer
 def WSD_Test_Rubbish(list): # List is a list of strings, with each string being a sentence containing the word "rubbish"
     answer = [ ]
     definition1 = '''
-    Rubbish, also known as trash or scrap, refers to materials that have little or no value and are typically discarded. These may include things such as food waste, broken items, packaging materials, or other unwanted materials that are no longer useful. Rubbish can accumulate quickly in households, public places, and businesses, and must be disposed of properly to maintain a clean and healthy environment
+    Rubbish, also known as trash, scrap, or litter, refers to materials that have little or no value and are typically discarded. These may include things such as food waste, broken items, packaging materials, or other unwanted materials that are no longer useful. Rubbish can accumulate quickly in households, public places, and businesses, and must be disposed of properly to maintain a clean and healthy environment. It can be thrown away
     '''
 
     definition2 = '''
@@ -118,9 +118,9 @@ def WSD_Test_Rubbish(list): # List is a list of strings, with each string being 
 def WSD_Test_Yarn(list):
     answer = [ ]
     definition1 = '''
-    Yarn can refer to the act of giving an account, narrating a story, or telling a tale, typically one that is detailed or elaborate. The term is often used informally to describe a long, rambling tale that is embellished or exaggerated for effect. Yarns may be told for entertainment, to convey information, or simply to pass the time. They can take many forms, from personal anecdotes to fictional narratives. They can describe one's childhood, knowledge of things, or simply be an enticing story.'''
+    Yarn can refer to the act of giving an account, narrating a story, or telling a tale, typically one that is detailed or elaborate. The term is often used informally to describe a long, rambling tale that is embellished or exaggerated for effect. Yarns may be told for entertainment, to convey information, or simply to pass the time. They can take many forms, from personal anecdotes to fictional narratives. They can describe one's childhood, knowledge of things, or simply be an enticing story. You can listen to, hear, and write a book or poem about a yarn.'''
     definition2 = '''
-    Yarn can also refer to a fine cord of twisted fibers, such as cotton, silk, wool, or nylon, that is commonly used in sewing, weaving, and knitting. Yarn is available in a wide range of colors, textures, and thicknesses, and can be made from natural or synthetic materials. It is used to create a variety of textile products, including clothing, blankets, and home decor items. The quality and characteristics of yarn can vary depending on the type of fiber used, the twist and ply of the yarn, and other factors. It is often in the form of a ball or skein, loosely coiled and knotted.
+    Yarn can also refer to a fine cord of twisted fibers, such as cotton, silk, wool, or nylon, that is commonly used in sewing, weaving, and knitting. Yarn is available in a wide range of colors, textures, and thicknesses, and can be made from natural or synthetic materials. It is used to create a variety of textile products, including clothing, blankets, and home decor items. The quality and characteristics of yarn can vary depending on the type of fiber used, the twist and ply of the yarn, and other factors. It is often in the form of a ball or skein, loosely coiled and knotted or in strands. You can wrap yarn around something.
     '''
 
     lemmatizer = WordNetLemmatizer()
@@ -227,10 +227,10 @@ def WSD_Test_Yarn(list):
 def WSD_Test_Tissue(list):
     answer = [ ]
     definition1 = '''
-    Tissue refers to a group or layer of cells in an organism that share a similar structure and function. Tissues can be found in a variety of living organisms, including plants and animals, and they work together to perform specific functions such as providing structural support, transporting nutrients, or facilitating communication between cells. Examples of tissues in humans include muscle tissue, nerve tissue, and connective tissue. Tissue can be infected, inflamed, raw, examined under a microscope, and makes up most of the human body (under the skin).
+    Tissue refers to a group or layer of cells in an organism that share a similar structure and function. Tissues can be found in a variety of living organisms, including plants and animals, and they work together to perform specific functions such as providing structural support, transporting nutrients, or facilitating communication between cells. Examples of tissues in humans include muscle tissue, nerve tissue, and connective tissue. Tissue can be infected, inflamed, raw, scarred, examined under a microscope, and makes up most of the human body (under the skin). 
     '''
     definition2 = '''
-    Tissue refers to a soft, thin, usually translucent paper that is commonly used for personal hygiene purposes or to wrap delicate objects. Tissue paper is often made from recycled materials and is available in a variety of colors, textures, and patterns. It is commonly used for wrapping gifts, wiping one's nose or face, or as a decorative element in crafting and other creative projects. Tissue paper is valued for its softness, light weight, and ease of use. It can wipe up spills, wipe up tears, and are generally used when people hear bad or sad news.
+    Tissue refers to a soft, thin, usually translucent paper that is commonly used for personal hygiene purposes or to wrap delicate objects. Tissue paper is often made from recycled materials and is available in a variety of colors, textures, and patterns. It is commonly used for wrapping gifts, wiping one's nose or face, or as a decorative element in crafting and other creative projects. Tissue paper is valued for its softness, light weight, and ease of use. It can wipe up spills, wipe up tears, and are generally used when people hear bad or sad news. Tissue comes in dispensers or boxes.
     '''
 
     lemmatizer = WordNetLemmatizer()
